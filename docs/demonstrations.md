@@ -32,4 +32,4 @@ npm run demo -- --scenario api-contract --single repaired
 npm run demo -- --scenario flaky --single broken --seed 29
 ```
 
-Once hosted on GitHub, manually dispatch **Opt-in failure lab** for a chosen scenario if you need a real failed Actions job. Collect that run ID with the GitHub collector. The regular **CI** workflow verifies both variants as a passing job and uploads reports.
+Manually dispatch [Opt-in failure lab](https://github.com/BeastShan/ReleaseGuard/actions/workflows/failure-lab.yml) for a chosen scenario if you need a real failed Actions job. Collect that run ID with the GitHub collector. The regular **CI** workflow verifies both variants as a passing job and uploads reports.

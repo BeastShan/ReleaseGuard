@@ -23,4 +23,4 @@ The CLI collected real metadata for a completed, failed [GitHub Actions run](htt
 
 ## Re-run
 
-Run `npm ci`, `npx playwright install chromium`, and `npm run verify`. New reports are written under `artifacts/verification/`. The regular GitHub Actions workflow is configured to run the same verification and upload that directory. A passing hosted ReleaseGuard Actions run still needs to be verified after publication.
+Run `npm ci`, `npx playwright install chromium`, and `npm run verify`. New reports are written under `artifacts/verification/`. The [GitHub Actions CI workflow](https://github.com/BeastShan/ReleaseGuard/actions/workflows/ci.yml) runs the same verification and uploads that directory.
