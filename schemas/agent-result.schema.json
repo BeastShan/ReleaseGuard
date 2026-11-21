@@ -1,0 +1,92 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "version": {
+      "type": "number",
+      "const": 1
+    },
+    "incidentId": {
+      "type": "string",
+      "pattern": "^rg-[a-f0-9]{24}$"
+    },
+    "baseCommit": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{40}$"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "repaired",
+        "not-reproduced",
+        "blocked",
+        "budget-exhausted"
+      ]
+    },
+    "summary": {
+      "type": "string",
+      "minLength": 1
+    },
+    "changedPaths": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "maxLength": 200,
+        "pattern": "^[\\w.-]+(?:\\/[\\w.-]+)*\\/?$"
+      }
+    },
+    "tests": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "command": {
+            "type": "string",
+            "minLength": 1
+          },
+          "phase": {
+            "type": "string",
+            "enum": [
+              "baseline",
+              "repair",
+              "validation"
+            ]
+          },
+          "exitCode": {
+            "type": "integer",
+            "minimum": -9007199254740991,
+            "maximum": 9007199254740991
+          },
+          "evidenceRef": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "required": [
+          "command",
+          "phase",
+          "exitCode",
+          "evidenceRef"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "residualRisks": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "required": [
+    "version",
+    "incidentId",
+    "baseCommit",
+    "status",
+    "summary",
+    "changedPaths",
+    "tests",
+    "residualRisks"
+  ],
+  "additionalProperties": false
+}

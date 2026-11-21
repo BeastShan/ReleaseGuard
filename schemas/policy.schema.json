@@ -1,0 +1,130 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "version": {
+      "$ref": "#/$defs/__schema0"
+    },
+    "repositories": {
+      "$ref": "#/$defs/__schema1"
+    }
+  },
+  "required": [
+    "version",
+    "repositories"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "__schema0": {
+      "type": "number",
+      "const": 1
+    },
+    "__schema1": {
+      "maxItems": 100,
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/__schema2"
+      }
+    },
+    "__schema2": {
+      "type": "object",
+      "properties": {
+        "repository": {
+          "type": "string",
+          "maxLength": 140,
+          "pattern": "^[a-z0-9][a-z0-9-]{0,38}\\/[a-z0-9_][a-z0-9_.-]{0,99}$"
+        },
+        "rules": {
+          "type": "object",
+          "propertyNames": {
+            "type": "string",
+            "enum": [
+              "frontend",
+              "api-contract",
+              "worker",
+              "test",
+              "configuration",
+              "flaky",
+              "unknown"
+            ]
+          },
+          "additionalProperties": {
+            "type": "object",
+            "properties": {
+              "approvedPaths": {
+                "minItems": 1,
+                "maxItems": 30,
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/__schema3"
+                }
+              },
+              "reproduction": {
+                "minItems": 1,
+                "maxItems": 10,
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/__schema4"
+                }
+              },
+              "mandatoryTests": {
+                "minItems": 1,
+                "maxItems": 10,
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/__schema5"
+                }
+              },
+              "acceptanceCriteria": {
+                "minItems": 1,
+                "maxItems": 10,
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/__schema6"
+                }
+              },
+              "maxMinutes": {
+                "type": "integer",
+                "minimum": 5,
+                "maximum": 60
+              }
+            },
+            "required": [
+              "approvedPaths",
+              "reproduction",
+              "mandatoryTests",
+              "acceptanceCriteria",
+              "maxMinutes"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "repository",
+        "rules"
+      ],
+      "additionalProperties": false
+    },
+    "__schema3": {
+      "type": "string",
+      "maxLength": 200,
+      "pattern": "^[\\w.-]+(?:\\/[\\w.-]+)*\\/?$"
+    },
+    "__schema4": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 300
+    },
+    "__schema5": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 300
+    },
+    "__schema6": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 300
+    }
+  }
+}

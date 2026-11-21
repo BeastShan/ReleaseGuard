@@ -1,0 +1,340 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "version": {
+      "type": "number",
+      "const": 1
+    },
+    "incidentId": {
+      "type": "string",
+      "pattern": "^rg-[a-f0-9]{24}$"
+    },
+    "repository": {
+      "type": "string",
+      "maxLength": 140,
+      "pattern": "^[a-z0-9][a-z0-9-]{0,38}\\/[a-z0-9_][a-z0-9_.-]{0,99}$"
+    },
+    "baseCommit": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{40}$"
+    },
+    "title": {
+      "type": "string"
+    },
+    "state": {
+      "type": "string",
+      "enum": [
+        "approval-required",
+        "blocked"
+      ]
+    },
+    "approvedPaths": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "maxLength": 200,
+        "pattern": "^[\\w.-]+(?:\\/[\\w.-]+)*\\/?$"
+      }
+    },
+    "acceptanceCriteria": {
+      "minItems": 1,
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/__schema0"
+      }
+    },
+    "reproduction": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "enum": [
+            "operator-configured",
+            "needs-operator"
+          ]
+        },
+        "steps": {
+          "minItems": 1,
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/__schema1"
+          }
+        }
+      },
+      "required": [
+        "status",
+        "steps"
+      ],
+      "additionalProperties": false
+    },
+    "mandatoryTests": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "budget": {
+      "type": "object",
+      "properties": {
+        "maxSessionMinutes": {
+          "type": "integer",
+          "minimum": 5,
+          "maximum": 60
+        },
+        "onExceeded": {
+          "type": "string",
+          "const": "stop-and-report"
+        }
+      },
+      "required": [
+        "maxSessionMinutes",
+        "onExceeded"
+      ],
+      "additionalProperties": false
+    },
+    "isolation": {
+      "type": "object",
+      "properties": {
+        "workspace": {
+          "type": "string",
+          "const": "disposable"
+        },
+        "productionCredentials": {
+          "type": "boolean",
+          "const": false
+        },
+        "network": {
+          "type": "string",
+          "const": "deny-by-default"
+        },
+        "allowMerge": {
+          "type": "boolean",
+          "const": false
+        },
+        "allowDeploy": {
+          "type": "boolean",
+          "const": false
+        }
+      },
+      "required": [
+        "workspace",
+        "productionCredentials",
+        "network",
+        "allowMerge",
+        "allowDeploy"
+      ],
+      "additionalProperties": false
+    },
+    "responsibilities": {
+      "type": "object",
+      "properties": {
+        "investigation": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "repair": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "validation": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "investigation",
+        "repair",
+        "validation"
+      ],
+      "additionalProperties": false
+    },
+    "evidence": {
+      "type": "object",
+      "properties": {
+        "trust": {
+          "type": "string",
+          "const": "untrusted"
+        },
+        "source": {
+          "oneOf": [
+            {
+              "type": "object",
+              "properties": {
+                "kind": {
+                  "type": "string",
+                  "const": "fixture"
+                },
+                "scenario": {
+                  "type": "string",
+                  "enum": [
+                    "frontend",
+                    "api-contract",
+                    "worker",
+                    "test",
+                    "configuration",
+                    "flaky",
+                    "unknown"
+                  ]
+                }
+              },
+              "required": [
+                "kind"
+              ]
+            },
+            {
+              "type": "object",
+              "properties": {
+                "kind": {
+                  "type": "string",
+                  "const": "application"
+                },
+                "service": {
+                  "type": "string",
+                  "enum": [
+                    "frontend",
+                    "api",
+                    "worker"
+                  ]
+                }
+              },
+              "required": [
+                "kind",
+                "service"
+              ]
+            },
+            {
+              "type": "object",
+              "properties": {
+                "kind": {
+                  "type": "string",
+                  "const": "github-actions"
+                },
+                "runId": {
+                  "$ref": "#/$defs/__schema2"
+                },
+                "runAttempt": {
+                  "$ref": "#/$defs/__schema2"
+                },
+                "jobId": {
+                  "$ref": "#/$defs/__schema2"
+                }
+              },
+              "required": [
+                "kind",
+                "runId",
+                "runAttempt",
+                "jobId"
+              ]
+            }
+          ]
+        },
+        "logExcerpts": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "attempts": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "label": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 80
+              },
+              "result": {
+                "type": "string",
+                "enum": [
+                  "failed",
+                  "passed"
+                ]
+              },
+              "detail": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 200
+              }
+            },
+            "required": [
+              "label",
+              "result",
+              "detail"
+            ]
+          }
+        }
+      },
+      "required": [
+        "trust",
+        "source",
+        "logExcerpts",
+        "attempts"
+      ],
+      "additionalProperties": false
+    },
+    "finalOutput": {
+      "type": "object",
+      "properties": {
+        "format": {
+          "type": "string",
+          "const": "json"
+        },
+        "schema": {
+          "type": "string",
+          "const": "schemas/agent-result.schema.json"
+        }
+      },
+      "required": [
+        "format",
+        "schema"
+      ],
+      "additionalProperties": false
+    },
+    "humanReview": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "required": [
+    "version",
+    "incidentId",
+    "repository",
+    "baseCommit",
+    "title",
+    "state",
+    "approvedPaths",
+    "acceptanceCriteria",
+    "reproduction",
+    "mandatoryTests",
+    "budget",
+    "isolation",
+    "responsibilities",
+    "evidence",
+    "finalOutput",
+    "humanReview"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "__schema0": {
+      "type": "string"
+    },
+    "__schema1": {
+      "type": "string"
+    },
+    "__schema2": {
+      "type": "integer",
+      "exclusiveMinimum": 0,
+      "maximum": 9007199254740991
+    }
+  }
+}

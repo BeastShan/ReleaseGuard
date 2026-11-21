@@ -1,0 +1,241 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "version": {
+      "type": "number",
+      "const": 1
+    },
+    "id": {
+      "type": "string",
+      "pattern": "^rg-[a-f0-9]{24}$"
+    },
+    "repository": {
+      "type": "string",
+      "maxLength": 140,
+      "pattern": "^[a-z0-9][a-z0-9-]{0,38}\\/[a-z0-9_][a-z0-9_.-]{0,99}$"
+    },
+    "commit": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{40}$"
+    },
+    "observedAt": {
+      "type": "string",
+      "format": "date-time",
+      "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z))$"
+    },
+    "failingTarget": {
+      "type": "string"
+    },
+    "category": {
+      "type": "string",
+      "enum": [
+        "frontend",
+        "api-contract",
+        "worker",
+        "test",
+        "configuration",
+        "flaky",
+        "unknown"
+      ]
+    },
+    "source": {
+      "oneOf": [
+        {
+          "type": "object",
+          "properties": {
+            "kind": {
+              "type": "string",
+              "const": "fixture"
+            },
+            "scenario": {
+              "type": "string",
+              "enum": [
+                "frontend",
+                "api-contract",
+                "worker",
+                "test",
+                "configuration",
+                "flaky",
+                "unknown"
+              ]
+            }
+          },
+          "required": [
+            "kind"
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "kind": {
+              "type": "string",
+              "const": "application"
+            },
+            "service": {
+              "type": "string",
+              "enum": [
+                "frontend",
+                "api",
+                "worker"
+              ]
+            }
+          },
+          "required": [
+            "kind",
+            "service"
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "kind": {
+              "type": "string",
+              "const": "github-actions"
+            },
+            "runId": {
+              "$ref": "#/$defs/__schema0"
+            },
+            "runAttempt": {
+              "$ref": "#/$defs/__schema0"
+            },
+            "jobId": {
+              "$ref": "#/$defs/__schema0"
+            }
+          },
+          "required": [
+            "kind",
+            "runId",
+            "runAttempt",
+            "jobId"
+          ]
+        }
+      ]
+    },
+    "logExcerpts": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "attempts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "label": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 80
+          },
+          "result": {
+            "type": "string",
+            "enum": [
+              "failed",
+              "passed"
+            ]
+          },
+          "detail": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200
+          }
+        },
+        "required": [
+          "label",
+          "result",
+          "detail"
+        ]
+      }
+    },
+    "reproduction": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "enum": [
+            "operator-configured",
+            "needs-operator"
+          ]
+        },
+        "steps": {
+          "minItems": 1,
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/__schema1"
+          }
+        }
+      },
+      "required": [
+        "status",
+        "steps"
+      ],
+      "additionalProperties": false
+    },
+    "suspectedScope": {
+      "type": "object",
+      "properties": {
+        "kind": {
+          "type": "string",
+          "const": "hypothesis"
+        },
+        "paths": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "maxLength": 200,
+            "pattern": "^[\\w.-]+(?:\\/[\\w.-]+)*\\/?$"
+          }
+        },
+        "explanation": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "kind",
+        "paths",
+        "explanation"
+      ],
+      "additionalProperties": false
+    },
+    "verificationRequirements": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "humanApproval": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "required": [
+    "version",
+    "id",
+    "repository",
+    "commit",
+    "observedAt",
+    "failingTarget",
+    "category",
+    "source",
+    "logExcerpts",
+    "attempts",
+    "reproduction",
+    "suspectedScope",
+    "verificationRequirements",
+    "humanApproval"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "__schema0": {
+      "type": "integer",
+      "exclusiveMinimum": 0,
+      "maximum": 9007199254740991
+    },
+    "__schema1": {
+      "type": "string"
+    }
+  }
+}

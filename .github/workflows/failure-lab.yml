@@ -1,0 +1,42 @@
+name: Opt-in failure lab
+
+on:
+  workflow_dispatch:
+    inputs:
+      scenario:
+        description: Controlled scenario to reproduce as a failed job
+        required: true
+        type: choice
+        default: api-contract
+        options: [frontend, api-contract, worker, test, configuration, flaky]
+
+permissions:
+  contents: read
+
+jobs:
+  reproduce:
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
+        with:
+          node-version-file: .nvmrc
+          package-manager-cache: false
+      - run: npm ci
+      - if: inputs.scenario == 'frontend'
+        run: npx playwright install --with-deps chromium
+      - name: Reproduce the selected defect
+        env:
+          SCENARIO: ${{ inputs.scenario }}
+        run: npm run demo -- --scenario "$SCENARIO" --single broken --out artifacts/failure-lab
+      - name: Upload the isolated failing test output
+        if: always()
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7
+        with:
+          name: controlled-failure
+          path: artifacts/failure-lab/
+          if-no-files-found: ignore
+          retention-days: 7
