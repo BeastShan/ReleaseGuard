@@ -1,0 +1,19 @@
+
+> releaseguard@0.1.0 demo
+> node lab/run.ts --out <repository>/artifacts/final-verification/demo
+
+frontend broken: exit 1, matched
+frontend repaired: exit 0, matched
+api-contract broken: exit 1, matched
+api-contract repaired: exit 0, matched
+worker broken: exit 1, matched
+worker repaired: exit 0, matched
+test broken: exit 1, matched
+test repaired: exit 0, matched
+configuration broken: exit 1, matched
+configuration repaired: exit 0, matched
+flaky broken seed=17: exit 1, matched
+flaky broken seed=29: exit 0, matched
+flaky repaired seed=17: exit 0, matched
+flaky repaired seed=29: exit 0, matched
+Verified 6/6 scenarios. Reports: <repository>/artifacts/final-verification/demo

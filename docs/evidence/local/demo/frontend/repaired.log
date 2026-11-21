@@ -1,0 +1,14 @@
+Command: node node_modules/@playwright/test/cli.js test --grep frontend rendering regression --reporter=list
+Exit code: 0
+
+[WebServer] ⚠ Warning: Next.js ignored package-lock.json in <lab-workspace> because it would include your home directory (<lab-workspace>/.home).
+[WebServer]  To use this directory, set `outputFileTracingRoot` in your Next.js config.
+[WebServer]
+
+Running 1 test using 1 worker
+
+(node:6374) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  1 tests/e2e/dashboard.spec.ts:4:1 › frontend rendering regression: incident inbox heading is visible (1.2s)
+
+  1 passed (14.4s)

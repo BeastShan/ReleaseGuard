@@ -1,0 +1,38 @@
+Command: node node_modules/vitest/vitest.mjs run --config lab/vitest.config.ts -t flaky polling race
+Exit code: 1
+
+RUN  v5.1.1 <lab-workspace>
+
+stdout | lab/regression.test.ts > flaky polling race
+Replay seed 17: job ready on poll 2, observed running after 1 reads.
+
+ ❯ lab/regression.test.ts (5 tests | 1 failed | 4 skipped) 11ms
+   ↓ API response contract regression
+   ↓ worker failure regression
+   ↓ deterministic test failure
+   ↓ configuration startup failure
+   × flaky polling race 10ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  lab/regression.test.ts > flaky polling race
+AssertionError: RG_FLAKE_REPLAY: expected 'running' to be 'succeeded' // Object.is equality
+
+Expected: "succeeded"
+Received: "running"
+
+ ❯ lab/regression.test.ts:74:41
+     72|   }), { attempts: 4, intervalMs: 0 });
+     73|   console.log(`Replay seed ${seed}: job ready on poll ${readyAtPoll}, …
+     74|   expect(job.status, 'RG_FLAKE_REPLAY').toBe('succeeded');
+       |                                         ^
+     75| });
+     76|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 4 skipped (5)
+   Start at  05:59:44
+   Duration  313ms (import 55%, transform 37%, tests 6%, worker 2%)

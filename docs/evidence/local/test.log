@@ -1,0 +1,12 @@
+
+> releaseguard@0.1.0 test
+> vitest run --config vitest.config.ts
+
+
+ RUN  v5.1.1 <repository>
+
+
+ Test Files  3 passed (3)
+      Tests  12 passed (12)
+   Start at  05:58:37
+   Duration  592ms (tests 49%, import 39%, transform 9%, worker 2%)

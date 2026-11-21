@@ -1,0 +1,27 @@
+{
+  "version": 1,
+  "scenario": "configuration",
+  "repository": "beastshan/releaseguard",
+  "commit": "4dd3689fb2fed4e19fead3c6bc9971178c72cea4",
+  "cleanCheckout": true,
+  "nodeVersion": "v24.22.3",
+  "verified": true,
+  "attempts": [
+    {
+      "mode": "broken",
+      "expected": 1,
+      "exitCode": 1,
+      "signal": null,
+      "log": "broken.log",
+      "matched": true
+    },
+    {
+      "mode": "repaired",
+      "expected": 0,
+      "exitCode": 0,
+      "signal": null,
+      "log": "repaired.log",
+      "matched": true
+    }
+  ]
+}

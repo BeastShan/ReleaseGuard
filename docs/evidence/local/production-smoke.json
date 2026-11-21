@@ -1,0 +1,10 @@
+{
+  "status": "succeeded",
+  "incidentId": "rg-8dafac74ffda196c33552a73",
+  "category": "api-contract",
+  "taskState": "approval-required",
+  "pinnedCommit": "4dd3689fb2fed4e19fead3c6bc9971178c72cea4",
+  "approvedPaths": [
+    "src/api/server.ts"
+  ]
+}

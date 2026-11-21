@@ -1,0 +1,11 @@
+Command: node node_modules/vitest/vitest.mjs run --config lab/vitest.config.ts -t worker failure regression
+Exit code: 0
+
+RUN  v5.1.1 <lab-workspace>
+
+ ✓ lab/regression.test.ts (5 tests | 4 skipped) 248ms
+
+ Test Files  1 passed (1)
+      Tests  1 passed | 4 skipped (5)
+   Start at  05:59:39
+   Duration  576ms (tests 54%, import 27%, transform 18%, worker 1%)

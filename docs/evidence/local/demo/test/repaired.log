@@ -1,0 +1,11 @@
+Command: node node_modules/vitest/vitest.mjs run --config lab/vitest.config.ts -t deterministic test failure
+Exit code: 0
+
+RUN  v5.1.1 <lab-workspace>
+
+ ✓ lab/regression.test.ts (5 tests | 4 skipped) 9ms
+
+ Test Files  1 passed (1)
+      Tests  1 passed | 4 skipped (5)
+   Start at  05:59:41
+   Duration  334ms (import 55%, transform 38%, tests 4%, worker 3%)

@@ -1,0 +1,43 @@
+{
+  "version": 1,
+  "repository": "beastshan/releaseguard",
+  "commit": "4dd3689fb2fed4e19fead3c6bc9971178c72cea4",
+  "observedAt": "2026-11-21T05:59:38.396Z",
+  "failingTarget": "API response contract regression",
+  "logs": [
+    "Command: node node_modules/vitest/vitest.mjs run --config lab/vitest.config.ts -t API response contract regression",
+    "Exit code: 1",
+    "RUN  v5.1.1 <lab-workspace>",
+    "❯ lab/regression.test.ts (5 tests | 1 failed | 4 skipped) 60ms",
+    "× API response contract regression 58ms",
+    "↓ worker failure regression",
+    "↓ deterministic test failure",
+    "↓ configuration startup failure",
+    "↓ flaky polling race",
+    "⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯",
+    "FAIL  lab/regression.test.ts > API response contract regression",
+    "AssertionError: RG_API_CONTRACT: expected { ready: true } to deeply equal { status: 'ok' }",
+    "- Expected",
+    "+ Received",
+    "{",
+    "-   \"status\": \"ok\",",
+    "+   \"ready\": true,",
+    "}",
+    "❯ lab/regression.test.ts:14:48",
+    "12|   try {",
+    "13|     const response = await api.inject('/health');",
+    "14|     expect(response.json(), 'RG_API_CONTRACT').toEqual({ status: 'ok' …",
+    "|                                                ^",
+    "15|   } finally {",
+    "16|     await api.close();",
+    "⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯",
+    "Test Files  1 failed (1)",
+    "Tests  1 failed | 4 skipped (5)",
+    "Start at  05:59:37",
+    "Duration  396ms (import 44%, transform 32%, tests 23%, worker 2%)"
+  ],
+  "source": {
+    "kind": "fixture",
+    "scenario": "api-contract"
+  }
+}

@@ -1,0 +1,43 @@
+Command: node node_modules/@playwright/test/cli.js test --grep frontend rendering regression --reporter=list
+Exit code: 1
+
+[WebServer] ⚠ Warning: Next.js ignored package-lock.json in <lab-workspace> because it would include your home directory (<lab-workspace>/.home).
+[WebServer]  To use this directory, set `outputFileTracingRoot` in your Next.js config.
+[WebServer]
+
+Running 1 test using 1 worker
+
+(node:6164) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘  1 tests/e2e/dashboard.spec.ts:4:1 › frontend rendering regression: incident inbox heading is visible (10.9s)
+
+
+  1) tests/e2e/dashboard.spec.ts:4:1 › frontend rendering regression: incident inbox heading is visible
+
+    Error: RG_FRONTEND_RENDER
+
+    expect(locator).toBeVisible() failed
+
+    Locator: getByRole('heading', { name: 'Incidents', exact: true })
+    Expected: visible
+    Timeout: 10000ms
+    Error: element(s) not found
+
+    Call log:
+      - RG_FRONTEND_RENDER getByRole('heading', { name: 'Incidents', exact: true }) with timeout 10000ms
+      - waiting for getByRole('heading', { name: 'Incidents', exact: true })
+
+
+      4 | test('frontend rendering regression: incident inbox heading is visible', async ({ page }) => {
+      5 |   await page.goto('/');
+    > 6 |   await expect(page.getByRole('heading', { name: 'Incidents', exact: true }), 'RG_FRONTEND_RENDER').toBeVisible();
+        |                                                                                                     ^
+      7 | });
+      8 |
+      9 | test('imports evidence and downloads the resulting task', async ({ page }) => {
+        at <lab-workspace>/tests/e2e/dashboard.spec.ts:6:101
+
+    Error Context: test-results/dashboard-frontend-renderi-ab158-nt-inbox-heading-is-visible/error-context.md
+
+  1 failed
+    tests/e2e/dashboard.spec.ts:4:1 › frontend rendering regression: incident inbox heading is visible

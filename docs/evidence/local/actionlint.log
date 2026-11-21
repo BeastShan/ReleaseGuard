@@ -1,0 +1,5 @@
+Command: actionlint
+1.7.12
+installed by downloading from release page
+built with go1.26.1 compiler for linux/amd64
+Exit code: 0

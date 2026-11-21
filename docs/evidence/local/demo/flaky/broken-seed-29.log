@@ -1,0 +1,14 @@
+Command: node node_modules/vitest/vitest.mjs run --config lab/vitest.config.ts -t flaky polling race
+Exit code: 0
+
+RUN  v5.1.1 <lab-workspace>
+
+stdout | lab/regression.test.ts > flaky polling race
+Replay seed 29: job ready on poll 1, observed succeeded after 1 reads.
+
+ ✓ lab/regression.test.ts (5 tests | 4 skipped) 4ms
+
+ Test Files  1 passed (1)
+      Tests  1 passed | 4 skipped (5)
+   Start at  05:59:45
+   Duration  415ms (import 49%, transform 47%, worker 2%, tests 2%)

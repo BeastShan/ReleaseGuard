@@ -1,0 +1,30 @@
+{
+  "nodeVersion": "v24.22.3",
+  "verifiedAt": "2026-11-21T05:59:46.926Z",
+  "outcomes": [
+    {
+      "command": "npm run schemas:check",
+      "exitCode": 0
+    },
+    {
+      "command": "npm run typecheck",
+      "exitCode": 0
+    },
+    {
+      "command": "npm run test",
+      "exitCode": 0
+    },
+    {
+      "command": "npm run build",
+      "exitCode": 0
+    },
+    {
+      "command": "npm run test:e2e",
+      "exitCode": 0
+    },
+    {
+      "command": "npm run demo -- --out <reports>/demo",
+      "exitCode": 0
+    }
+  ]
+}

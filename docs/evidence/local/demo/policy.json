@@ -1,0 +1,112 @@
+{
+  "version": 1,
+  "repositories": [
+    {
+      "repository": "beastshan/releaseguard",
+      "rules": {
+        "frontend": {
+          "approvedPaths": [
+            "dashboard/app/page.tsx"
+          ],
+          "reproduction": [
+            "npm run demo -- --scenario frontend --single broken"
+          ],
+          "mandatoryTests": [
+            "npm run demo -- --scenario frontend",
+            "npm run verify"
+          ],
+          "acceptanceCriteria": [
+            "The incident inbox heading is visible to the browser and accessibility tree.",
+            "Preserve the assertion and attach captured baseline and candidate outputs."
+          ],
+          "maxMinutes": 20
+        },
+        "api-contract": {
+          "approvedPaths": [
+            "src/api/server.ts"
+          ],
+          "reproduction": [
+            "npm run demo -- --scenario api-contract --single broken"
+          ],
+          "mandatoryTests": [
+            "npm run demo -- --scenario api-contract",
+            "npm run verify"
+          ],
+          "acceptanceCriteria": [
+            "GET /health returns HTTP 200 with the status field equal to ok.",
+            "Preserve the assertion and attach captured baseline and candidate outputs."
+          ],
+          "maxMinutes": 20
+        },
+        "worker": {
+          "approvedPaths": [
+            "src/worker/entry.ts"
+          ],
+          "reproduction": [
+            "npm run demo -- --scenario worker --single broken"
+          ],
+          "mandatoryTests": [
+            "npm run demo -- --scenario worker",
+            "npm run verify"
+          ],
+          "acceptanceCriteria": [
+            "A valid evidence submission finishes successfully and produces a pinned engineering task.",
+            "Preserve the assertion and attach captured baseline and candidate outputs."
+          ],
+          "maxMinutes": 20
+        },
+        "test": {
+          "approvedPaths": [
+            "src/core/normalize.ts"
+          ],
+          "reproduction": [
+            "npm run demo -- --scenario test --single broken"
+          ],
+          "mandatoryTests": [
+            "npm run demo -- --scenario test",
+            "npm run verify"
+          ],
+          "acceptanceCriteria": [
+            "Incident IDs retain the rg- prefix and exactly 24 hexadecimal characters.",
+            "Preserve the assertion and attach captured baseline and candidate outputs."
+          ],
+          "maxMinutes": 20
+        },
+        "configuration": {
+          "approvedPaths": [
+            "src/api/main.ts"
+          ],
+          "reproduction": [
+            "npm run demo -- --scenario configuration --single broken"
+          ],
+          "mandatoryTests": [
+            "npm run demo -- --scenario configuration",
+            "npm run verify"
+          ],
+          "acceptanceCriteria": [
+            "The API starts with a valid numeric port and serves a healthy response.",
+            "Preserve the assertion and attach captured baseline and candidate outputs."
+          ],
+          "maxMinutes": 20
+        },
+        "flaky": {
+          "approvedPaths": [
+            "src/collect/poll.ts"
+          ],
+          "reproduction": [
+            "npm run demo -- --scenario flaky --single broken"
+          ],
+          "mandatoryTests": [
+            "npm run demo -- --scenario flaky",
+            "npm run verify"
+          ],
+          "acceptanceCriteria": [
+            "The polling client waits for a terminal job under both recorded readiness schedules.",
+            "Preserve the assertion and attach captured baseline and candidate outputs."
+          ],
+          "maxMinutes": 20
+        }
+      }
+    }
+  ]
+}

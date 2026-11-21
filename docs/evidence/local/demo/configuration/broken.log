@@ -1,0 +1,38 @@
+Command: node node_modules/vitest/vitest.mjs run --config lab/vitest.config.ts -t configuration startup failure
+Exit code: 1
+
+RUN  v5.1.1 <lab-workspace>
+
+ ❯ lab/regression.test.ts (5 tests | 1 failed | 4 skipped) 224ms
+   ↓ API response contract regression
+   ↓ worker failure regression
+   ↓ deterministic test failure
+   × configuration startup failure 223ms
+   ↓ flaky polling race
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  lab/regression.test.ts > configuration startup failure
+AssertionError: RG_CONFIG_INVALID: RELEASEGUARD_API_PORT must be an integer from 1 to 65535.: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ lab/regression.test.ts:58:74
+     56|       await delay(60);
+     57|     }
+     58|     expect(healthy, errorOutput.trim() || 'API did not become healthy.…
+       |                                                                          ^
+     59|   } finally {
+     60|     child.kill();
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 4 skipped (5)
+   Start at  05:59:42
+   Duration  553ms (tests 51%, import 26%, transform 22%, worker 1%)

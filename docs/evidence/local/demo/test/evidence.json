@@ -1,0 +1,41 @@
+{
+  "version": 1,
+  "repository": "beastshan/releaseguard",
+  "commit": "4dd3689fb2fed4e19fead3c6bc9971178c72cea4",
+  "observedAt": "2026-11-21T05:59:42.060Z",
+  "failingTarget": "deterministic test failure",
+  "logs": [
+    "Command: node node_modules/vitest/vitest.mjs run --config lab/vitest.config.ts -t deterministic test failure",
+    "Exit code: 1",
+    "RUN  v5.1.1 <lab-workspace>",
+    "❯ lab/regression.test.ts (5 tests | 1 failed | 4 skipped) 13ms",
+    "↓ API response contract regression",
+    "↓ worker failure regression",
+    "× deterministic test failure 12ms",
+    "↓ configuration startup failure",
+    "↓ flaky polling race",
+    "⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯",
+    "FAIL  lab/regression.test.ts > deterministic test failure",
+    "AssertionError: RG_TEST_FAILURE: expected 'rg-6843736d' to match /^rg-[a-f0-9]{24}$/",
+    "- Expected:",
+    "/^rg-[a-f0-9]{24}$/",
+    "+ Received:",
+    "\"rg-6843736d\"",
+    "❯ lab/regression.test.ts:36:76",
+    "34|",
+    "35| test('deterministic test failure', () => {",
+    "36|   expect(processEvidence(sampleEvidence()).incident.id, 'RG_TEST_FAILU…",
+    "|                                                                            ^",
+    "37| });",
+    "38|",
+    "⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯",
+    "Test Files  1 failed (1)",
+    "Tests  1 failed | 4 skipped (5)",
+    "Start at  05:59:40",
+    "Duration  488ms (transform 57%, import 38%, tests 4%, worker 1%)"
+  ],
+  "source": {
+    "kind": "fixture",
+    "scenario": "test"
+  }
+}
